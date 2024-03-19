@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&display=swap");
 $main-color: #5fbdff;
 $light-color: #f0f3f2;
@@ -10,6 +13,15 @@ $font-family: "Encode Sans Expanded", sans-serif;
 $rating-color: #ffc908;
 $main-transition: all 0.8s;
 $hovaring-color: #5fbcffc5;
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $main-color;
+  border-radius: 5px;
+}
 
 body {
   font-family: $font-family;

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { Product } from 'src/app/core/interface/product';
 import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
+import { Categories } from 'src/app/core/interface/category';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CuttextPipe],
+  imports: [CommonModule, CuttextPipe, CarouselModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -15,13 +17,64 @@ export class HomeComponent implements OnInit {
   constructor(private _ProductsService: ProductsService) {}
 
   productsData: Product[] = [];
+  categories: Categories[] = [];
 
   ngOnInit(): void {
     this._ProductsService.getProducts().subscribe({
       next: (response) => {
-        console.log(response.data);
+        console.log('p', response.data);
         this.productsData = response.data;
       },
     });
+
+    this._ProductsService.getCategories().subscribe({
+      next: (response) => {
+        console.log('c', response);
+        this.categories = response.data;
+      },
+    });
   }
+
+  categoryOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 3,
+      },
+      740: {
+        items: 4,
+      },
+      940: {
+        items: 5,
+      },
+    },
+    nav: false,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplaySpeed: 1000,
+  };
+
+  mainSlidOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    items: 1,
+    nav: false,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplaySpeed: 1000,
+  };
 }
