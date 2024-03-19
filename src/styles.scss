@@ -50,6 +50,11 @@ body {
   border-radius: 5px;
   padding: 4px;
   box-shadow: $shadow;
+  transition: all 0.5s ease;
+
+  &:hover {
+    scale: 1.03;
+  }
 }
 
 .active-link {
