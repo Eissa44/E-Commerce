@@ -73,8 +73,10 @@
             [title]="item.title"
             class="w-100"
           />
-          <h4 class="h6 my-3 text-main">{{ item.title | cuttext : 2 }}</h4>
-          <h5 class="h6">{{ item.category.name }}</h5>
+          <h4 class="h6 text-main">{{ item.category.name }}</h4>
+          <h5 class="h5 my-3 small">
+            {{ item.title | cuttext : 3 }}
+          </h5>
 
           <div
             class="product-footer d-flex align-items-center justify-content-between mt-2"
@@ -88,7 +90,9 @@
         </header>
 
         <footer>
-          <button class="main-btn my-2 w-100">+ Add To Cart</button>
+          <button (click)="addProduct(item._id)" class="main-btn my-2 w-100">
+            + Add To Cart
+          </button>
         </footer>
       </div>
     </div>

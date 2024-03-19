@@ -6,6 +6,8 @@ import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
 import { Categories } from 'src/app/core/interface/category';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from '@angular/router';
+import { CartService } from 'src/app/core/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,11 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private _ProductsService: ProductsService) {}
+  constructor(
+    private _ProductsService: ProductsService,
+    private _CartService: CartService,
+    private _ToastrService: ToastrService
+  ) {}
 
   productsData: Product[] = [];
   categories: Categories[] = [];
@@ -76,4 +82,12 @@ export class HomeComponent implements OnInit {
     autoplayTimeout: 5000,
     autoplaySpeed: 1000,
   };
+
+  addProduct(id: any): void {
+    this._CartService.addToCart(id).subscribe({
+      next: (response) => {
+        this._ToastrService.success(response.message, 'Your FreshCart App');
+      },
+    });
+  }
 }
