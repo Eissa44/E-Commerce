@@ -5,11 +5,12 @@ import { Product } from 'src/app/core/interface/product';
 import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
 import { Categories } from 'src/app/core/interface/category';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CuttextPipe, CarouselModule],
+  imports: [CommonModule, CuttextPipe, CarouselModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -22,14 +23,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this._ProductsService.getProducts().subscribe({
       next: (response) => {
-        console.log('p', response.data);
         this.productsData = response.data;
       },
     });
 
     this._ProductsService.getCategories().subscribe({
       next: (response) => {
-        console.log('c', response);
         this.categories = response.data;
       },
     });

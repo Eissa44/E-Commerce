@@ -11,4 +11,8 @@ import { FooterComponent } from 'src/app/components/footer/footer.component';
   templateUrl: './blank-layout.component.html',
   styleUrls: ['./blank-layout.component.scss'],
 })
-export class BlankLayoutComponent {}
+export class BlankLayoutComponent {
+  goUp(): void {
+    scrollTo(0, 0);
+  }
+}

@@ -42,6 +42,15 @@ const routes: Routes = [
       },
 
       {
+        path: 'details/:id',
+        loadComponent: () =>
+          import('./components/details/details.component').then(
+            (pram) => pram.DetailsComponent
+          ),
+        title: 'Products',
+      },
+
+      {
         path: 'brands',
         loadComponent: () =>
           import('./components/brands/brands.component').then(
