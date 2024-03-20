@@ -21,7 +21,6 @@ export class CartComponent implements OnInit {
     this._CartService.getUserCart().subscribe({
       next: (response) => {
         this.cartDetails = response.data;
-        console.log(this.cartDetails);
       },
     });
   }
@@ -31,8 +30,11 @@ export class CartComponent implements OnInit {
 
     this._CartService.removeCartItem(id).subscribe({
       next: (response) => {
+        console.log(response);
+
         this.cartDetails = response.data;
         this._Renderer2.removeAttribute(element, 'disabled');
+        this._CartService.cartNumber.next(response.numOfCartItems);
       },
       error: (err) => {
         this._Renderer2.removeAttribute(element, 'disabled');
@@ -68,6 +70,7 @@ export class CartComponent implements OnInit {
       next: (response) => {
         if (response.message === 'success') {
           this.cartDetails = null;
+          this._CartService.cartNumber.next(0);
         }
       },
     });

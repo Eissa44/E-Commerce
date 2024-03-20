@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,7 @@ export class CartService {
   myToken: any = {
     token: localStorage.getItem('loginToken'),
   };
+  cartNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
   addToCart(productId: string | null): Observable<any> {
     return this._HttpClient.post(

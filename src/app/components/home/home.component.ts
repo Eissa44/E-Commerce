@@ -89,6 +89,7 @@ export class HomeComponent implements OnInit {
 
     this._CartService.addToCart(id).subscribe({
       next: (response) => {
+        this._CartService.cartNumber.next(response.numOfCartItems);
         this._ToastrService.success(response.message, 'Your FreshCart App');
         this._Renderer2.removeAttribute(element, 'disabled');
       },
