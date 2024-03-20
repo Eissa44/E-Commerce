@@ -5,9 +5,15 @@
 >
   <h3 class="h2 text-center my-2">Shop Cart</h3>
 
-  <p class="text-main">
-    Total Price: {{ cartDetails.totalCartPrice | currency : "E£ " }}
-  </p>
+  <div class="d-flex justify-content-between align-items-center">
+    <p class="text-main">
+      Total Price: {{ cartDetails.totalCartPrice | currency : "E£ " }}
+    </p>
+
+    <button class="btn btn-sm btn-outline-danger" (click)="clearCart()">
+      Clear Cart
+    </button>
+  </div>
 
   <div class="row g-4 py-2" *ngFor="let item of cartDetails.products">
     <div class="col-md-2">
@@ -32,9 +38,25 @@
       </div>
 
       <div>
-        <button class="main-btn">-</button>
+        <button
+          (click)="
+            updateCount(item.product._id, item.count - 1, btnDown, btnUp)
+          "
+          class="main-btn"
+          #btnDown
+        >
+          -
+        </button>
         <span class="mx-2">{{ item.count }}</span>
-        <button class="main-btn">+</button>
+        <button
+          (click)="
+            updateCount(item.product._id, item.count + 1, btnDown, btnUp)
+          "
+          class="main-btn"
+          #btnUp
+        >
+          +
+        </button>
       </div>
     </div>
     <hr />

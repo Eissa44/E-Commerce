@@ -37,4 +37,22 @@ export class CartService {
       headers: this.myToken,
     });
   }
+
+  updateCartItem(productId: string, countNum: number): Observable<any> {
+    return this._HttpClient.put(
+      this.baseUrl + `cart/${productId}`,
+      {
+        count: countNum,
+      },
+      {
+        headers: this.myToken,
+      }
+    );
+  }
+
+  clearCartItems(): Observable<any> {
+    return this._HttpClient.delete(this.baseUrl + `cart`, {
+      headers: this.myToken,
+    });
+  }
 }

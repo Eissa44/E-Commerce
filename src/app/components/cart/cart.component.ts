@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(id: string, element: HTMLButtonElement) {
-    this._Renderer2.setAttribute(element, 'disabled', 'true ');
+    this._Renderer2.setAttribute(element, 'disabled', 'true');
 
     this._CartService.removeCartItem(id).subscribe({
       next: (response) => {
@@ -36,6 +36,39 @@ export class CartComponent implements OnInit {
       },
       error: (err) => {
         this._Renderer2.removeAttribute(element, 'disabled');
+      },
+    });
+  }
+
+  updateCount(
+    id: string,
+    count: number,
+    el1: HTMLButtonElement,
+    el2: HTMLButtonElement
+  ): void {
+    if (count >= 1) {
+      this._Renderer2.setAttribute(el1, 'disabled', 'true');
+      this._Renderer2.setAttribute(el2, 'disabled', 'true');
+      this._CartService.updateCartItem(id, count).subscribe({
+        next: (response) => {
+          this.cartDetails = response.data;
+          this._Renderer2.removeAttribute(el1, 'disabled');
+          this._Renderer2.removeAttribute(el2, 'disabled');
+        },
+        error: (err) => {
+          this._Renderer2.removeAttribute(el1, 'disabled');
+          this._Renderer2.removeAttribute(el2, 'disabled');
+        },
+      });
+    }
+  }
+
+  clearCart(): void {
+    this._CartService.clearCartItems().subscribe({
+      next: (response) => {
+        if (response.message === 'success') {
+          this.cartDetails = null;
+        }
       },
     });
   }
