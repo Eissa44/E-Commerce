@@ -90,7 +90,11 @@
         </header>
 
         <footer>
-          <button (click)="addProduct(item._id)" class="main-btn my-2 w-100">
+          <button
+            (click)="addProduct(item._id, addBtn)"
+            class="main-btn my-2 w-100"
+            #addBtn
+          >
             + Add To Cart
           </button>
         </footer>

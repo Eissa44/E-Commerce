@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { Product } from 'src/app/core/interface/product';
@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private _ProductsService: ProductsService,
     private _CartService: CartService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Renderer2: Renderer2
   ) {}
 
   productsData: Product[] = [];
@@ -83,10 +84,16 @@ export class HomeComponent implements OnInit {
     autoplaySpeed: 1000,
   };
 
-  addProduct(id: any): void {
+  addProduct(id: any, element: HTMLButtonElement): void {
+    this._Renderer2.setAttribute(element, 'disabled', 'true');
+
     this._CartService.addToCart(id).subscribe({
       next: (response) => {
         this._ToastrService.success(response.message, 'Your FreshCart App');
+        this._Renderer2.removeAttribute(element, 'disabled');
+      },
+      error: (err) => {
+        this._Renderer2.removeAttribute(element, 'disabled');
       },
     });
   }

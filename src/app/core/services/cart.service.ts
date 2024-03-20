@@ -25,4 +25,16 @@ export class CartService {
       }
     );
   }
+
+  getUserCart(): Observable<any> {
+    return this._HttpClient.get(this.baseUrl + `cart`, {
+      headers: this.myToken,
+    });
+  }
+
+  removeCartItem(productId: string): Observable<any> {
+    return this._HttpClient.delete(this.baseUrl + `cart/${productId}`, {
+      headers: this.myToken,
+    });
+  }
 }

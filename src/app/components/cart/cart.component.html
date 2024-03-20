@@ -1,1 +1,46 @@
-<p>cart works!</p>
+<section
+  id="cart"
+  class="w-75 mx-auto rounded-2 shadow bg-main-light p-3 my-3"
+  *ngIf="cartDetails; else msg"
+>
+  <h3 class="h2 text-center my-2">Shop Cart</h3>
+
+  <p class="text-main">
+    Total Price: {{ cartDetails.totalCartPrice | currency : "E£ " }}
+  </p>
+
+  <div class="row g-4 py-2" *ngFor="let item of cartDetails.products">
+    <div class="col-md-2">
+      <img
+        class="w-100"
+        [src]="item.product.imageCover"
+        [alt]="item.product.title"
+      />
+    </div>
+
+    <div class="col-md-10 d-flex align-items-center justify-content-between">
+      <div>
+        <h3 class="h5">{{ item.product.title }}</h3>
+        <p class="text-main small">{{ item.price | currency : "E£ " }}</p>
+        <button
+          #removeBtn
+          class="main-btn"
+          (click)="removeItem(item.product._id, removeBtn)"
+        >
+          <i class="fas fa-trash-can"></i> Remove
+        </button>
+      </div>
+
+      <div>
+        <button class="main-btn">-</button>
+        <span class="mx-2">{{ item.count }}</span>
+        <button class="main-btn">+</button>
+      </div>
+    </div>
+    <hr />
+  </div>
+</section>
+
+<ng-template #msg>
+  <h2 class="text-center my-2">You haven't added products yet...</h2>
+</ng-template>
