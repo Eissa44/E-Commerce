@@ -1,1 +1,79 @@
-<p>products works!</p>
+<section *ngIf="productsData.length > 0" id="products">
+  <h2 class="text-center my-5">All Products</h2>
+  <input
+    type="search"
+    class="form-control w-50 mx-auto"
+    placeholder="You can search..."
+    [(ngModel)]="term"
+  />
+
+  <div class="row g-4 my-5">
+    <div
+      class="col-sm-6 col-md-4 col-lg-3 col-xl-2"
+      *ngFor="
+        let item of productsData
+          | search : term
+          | paginate
+            : {
+                id: 'productsPaginate',
+                itemsPerPage: pageSize,
+                currentPage: currentPage,
+                totalItems: totalPage
+              }
+      "
+    >
+      <div class="product p-2 overflow-hidden h-100">
+        <header [routerLink]="['/details', item._id]" role="button">
+          <img
+            [src]="item.imageCover"
+            [alt]="item.title"
+            [title]="item.title"
+            class="w-100"
+          />
+          <h4 class="h6 text-main">{{ item.category.name }}</h4>
+          <h5 class="h5 my-3 small">
+            {{ item.title | cuttext : 2 }}
+          </h5>
+
+          <div
+            class="product-footer d-flex align-items-center justify-content-between mt-2"
+          >
+            <span class="small">{{ item.price | currency : "E£ " }}</span>
+            <p class="m-0">
+              <i class="fas fa-star rating-color me-1"></i>
+              <span class="text-muted"> {{ item.ratingsAverage }}</span>
+            </p>
+          </div>
+        </header>
+
+        <footer>
+          <button
+            (click)="addProduct(item._id, addBtn)"
+            class="main-btn my-2 w-100"
+            #addBtn
+          >
+            + Add To Cart
+          </button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center my-4">
+    <pagination-controls
+      id="productsPaginate"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      [maxSize]="9"
+      [directionLinks]="true"
+      [autoHide]="true"
+      [responsive]="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+  </div>
+</section>

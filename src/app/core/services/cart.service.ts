@@ -9,9 +9,7 @@ export class CartService {
   constructor(private _HttpClient: HttpClient) {}
 
   baseUrl: string = 'https://ecommerce.routemisr.com/api/v1/';
-  myToken: any = {
-    token: localStorage.getItem('loginToken'),
-  };
+
   cartNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
   addToCart(productId: string | null): Observable<any> {
@@ -20,40 +18,25 @@ export class CartService {
 
       {
         productId: productId,
-      },
-      {
-        headers: this.myToken,
       }
     );
   }
 
   getUserCart(): Observable<any> {
-    return this._HttpClient.get(this.baseUrl + `cart`, {
-      headers: this.myToken,
-    });
+    return this._HttpClient.get(this.baseUrl + `cart`);
   }
 
   removeCartItem(productId: string): Observable<any> {
-    return this._HttpClient.delete(this.baseUrl + `cart/${productId}`, {
-      headers: this.myToken,
-    });
+    return this._HttpClient.delete(this.baseUrl + `cart/${productId}`);
   }
 
   updateCartItem(productId: string, countNum: number): Observable<any> {
-    return this._HttpClient.put(
-      this.baseUrl + `cart/${productId}`,
-      {
-        count: countNum,
-      },
-      {
-        headers: this.myToken,
-      }
-    );
+    return this._HttpClient.put(this.baseUrl + `cart/${productId}`, {
+      count: countNum,
+    });
   }
 
   clearCartItems(): Observable<any> {
-    return this._HttpClient.delete(this.baseUrl + `cart`, {
-      headers: this.myToken,
-    });
+    return this._HttpClient.delete(this.baseUrl + `cart`);
   }
 }

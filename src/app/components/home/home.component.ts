@@ -1,18 +1,27 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from 'src/app/core/services/products.service';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { ToastrService } from 'ngx-toastr';
+import { Categories } from 'src/app/core/interface/category';
 import { Product } from 'src/app/core/interface/product';
 import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
-import { Categories } from 'src/app/core/interface/category';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { RouterLink } from '@angular/router';
+import { SearchPipe } from 'src/app/core/pipe/search.pipe';
 import { CartService } from 'src/app/core/services/cart.service';
-import { ToastrService } from 'ngx-toastr';
+import { ProductsService } from 'src/app/core/services/products.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CuttextPipe, CarouselModule, RouterLink],
+  imports: [
+    CommonModule,
+    CuttextPipe,
+    CarouselModule,
+    RouterLink,
+    SearchPipe,
+    FormsModule,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -26,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   productsData: Product[] = [];
   categories: Categories[] = [];
+  term: string = '';
 
   ngOnInit(): void {
     this._ProductsService.getProducts().subscribe({

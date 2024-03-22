@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from 'src/app/core/services/cart.service';
@@ -11,8 +18,25 @@ import { CartService } from 'src/app/core/services/cart.service';
   styleUrls: ['./nav-blank.component.scss'],
 })
 export class NavBlankComponent implements OnInit {
-  constructor(private _Router: Router, private _CartService: CartService) {}
+  constructor(
+    private _Router: Router,
+    private _CartService: CartService,
+    private _Renderer2: Renderer2
+  ) {}
   cartNumber: number = 0;
+
+  @ViewChild('reNavbar') navblank!: ElementRef;
+
+  @HostListener('window:scroll')
+  onscroll(): void {
+    if (scrollY > 250) {
+      this._Renderer2.addClass(this.navblank.nativeElement, 'px-5');
+      this._Renderer2.addClass(this.navblank.nativeElement, 'shadow');
+    } else {
+      this._Renderer2.removeClass(this.navblank.nativeElement, 'px-5');
+      this._Renderer2.removeClass(this.navblank.nativeElement, 'shadow');
+    }
+  }
 
   ngOnInit(): void {
     this._CartService.cartNumber.subscribe({

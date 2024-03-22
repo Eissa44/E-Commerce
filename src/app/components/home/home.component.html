@@ -60,10 +60,17 @@
 <section *ngIf="productsData.length > 0" id="products">
   <h2 class="text-center my-5">Popular Product</h2>
 
+  <input
+    type="search"
+    class="form-control w-50 mx-auto"
+    placeholder="You can search..."
+    [(ngModel)]="term"
+  />
+
   <div class="row g-4 my-5">
     <div
       class="col-sm-6 col-md-4 col-lg-3 col-xl-2"
-      *ngFor="let item of productsData | slice : 0 : 18"
+      *ngFor="let item of productsData | slice : 0 : 18 | search : term"
     >
       <div class="product p-2 overflow-hidden h-100">
         <header [routerLink]="['/details', item._id]" role="button">

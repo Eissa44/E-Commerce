@@ -10,8 +10,8 @@ export class ProductsService {
 
   baseUrl: string = 'https://ecommerce.routemisr.com/api/v1/';
 
-  getProducts(): Observable<any> {
-    return this._HttpClient.get(this.baseUrl + 'products');
+  getProducts(pageNum: number = 1): Observable<any> {
+    return this._HttpClient.get(this.baseUrl + `products?page=${pageNum}`);
   }
 
   getCategories(): Observable<any> {

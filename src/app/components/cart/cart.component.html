@@ -25,7 +25,7 @@
     </div>
 
     <div class="col-md-10 d-flex align-items-center justify-content-between">
-      <div>
+      <div class="w-75">
         <h3 class="h5">{{ item.product.title }}</h3>
         <p class="text-main small">{{ item.price | currency : "E£ " }}</p>
         <button
@@ -37,7 +37,7 @@
         </button>
       </div>
 
-      <div>
+      <div class="">
         <button
           (click)="
             updateCount(item.product._id, item.count - 1, btnDown, btnUp)
