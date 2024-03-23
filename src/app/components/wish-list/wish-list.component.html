@@ -1,0 +1,64 @@
+<!-- START OF POPULAR PROUDUCT -->
+<section *ngIf="productsData.length > 0; else msg" id="products">
+  <h2 class="text-center my-5">Popular Product</h2>
+
+  <div class="row g-4 my-5">
+    <div
+      class="col-sm-6 col-md-4 col-lg-3 col-xl-2"
+      *ngFor="let item of productsData"
+    >
+      <div class="product p-2 overflow-hidden h-100 position-relative">
+        <i
+          class="fa-regular fa-heart position-absolute heart z-1"
+          role="button"
+          (click)="addWish(item._id)"
+          *ngIf="!wishListData.includes($any(item._id))"
+        ></i>
+
+        <i
+          class="fa-solid fa-heart-crack position-absolute heart text-danger z-1"
+          role="button"
+          (click)="removeWish(item._id)"
+          *ngIf="wishListData.includes($any(item._id))"
+        ></i>
+
+        <header [routerLink]="['/details', item._id]" role="button">
+          <img
+            [src]="item.imageCover"
+            [alt]="item.title"
+            [title]="item.title"
+            class="w-100"
+          />
+          <h4 class="h6 text-main">{{ item.category.name }}</h4>
+          <h5 class="h5 my-3 small">
+            {{ item.title | cuttext : 2 }}
+          </h5>
+
+          <div
+            class="product-footer d-flex align-items-center justify-content-between mt-2"
+          >
+            <span class="small">{{ item.price | currency : "E£ " }}</span>
+            <p class="m-0">
+              <i class="fas fa-star rating-color me-1"></i>
+              <span class="text-muted"> {{ item.ratingsAverage }}</span>
+            </p>
+          </div>
+        </header>
+
+        <footer>
+          <button
+            (click)="addProduct(item._id, addBtn)"
+            class="main-btn my-2 w-100"
+            #addBtn
+          >
+            + Add To Cart
+          </button>
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #msg>
+  <h2 class="text-center my-2">You haven't added your wish products yet...</h2>
+</ng-template>

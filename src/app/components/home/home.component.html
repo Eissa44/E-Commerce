@@ -72,7 +72,21 @@
       class="col-sm-6 col-md-4 col-lg-3 col-xl-2"
       *ngFor="let item of productsData | slice : 0 : 18 | search : term"
     >
-      <div class="product p-2 overflow-hidden h-100">
+      <div class="product p-2 overflow-hidden h-100 position-relative">
+        <i
+          class="fa-regular fa-heart position-absolute heart z-1"
+          role="button"
+          (click)="addWish(item._id)"
+          *ngIf="!wishListData.includes($any(item._id))"
+        ></i>
+
+        <i
+          class="fa-solid fa-heart-crack position-absolute heart text-danger z-1"
+          role="button"
+          (click)="removeWish(item._id)"
+          *ngIf="wishListData.includes($any(item._id))"
+        ></i>
+
         <header [routerLink]="['/details', item._id]" role="button">
           <img
             [src]="item.imageCover"

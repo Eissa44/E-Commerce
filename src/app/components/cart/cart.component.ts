@@ -30,8 +30,6 @@ export class CartComponent implements OnInit {
 
     this._CartService.removeCartItem(id).subscribe({
       next: (response) => {
-        console.log(response);
-
         this.cartDetails = response.data;
         this._Renderer2.removeAttribute(element, 'disabled');
         this._CartService.cartNumber.next(response.numOfCartItems);

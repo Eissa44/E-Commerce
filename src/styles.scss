@@ -66,8 +66,27 @@ body {
   box-shadow: $shadow;
   transition: all 0.5s ease;
 
+  .heart {
+    font-size: 30px;
+    top: 5px;
+    right: -45px;
+    transition: all 0.5s ease;
+  }
+
+  .main-btn {
+    transform: translateY(170%);
+    transition: all 0.5s ease;
+  }
+
   &:hover {
     scale: 1.03;
+    .heart {
+      right: 5px;
+    }
+
+    .main-btn {
+      transform: translateY(0);
+    }
   }
 }
 

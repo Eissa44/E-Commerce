@@ -9,17 +9,12 @@ export class CartService {
   constructor(private _HttpClient: HttpClient) {}
 
   baseUrl: string = 'https://ecommerce.routemisr.com/api/v1/';
-
   cartNumber: BehaviorSubject<number> = new BehaviorSubject(0);
 
   addToCart(productId: string | null): Observable<any> {
-    return this._HttpClient.post(
-      this.baseUrl + `cart`,
-
-      {
-        productId: productId,
-      }
-    );
+    return this._HttpClient.post(this.baseUrl + `cart`, {
+      productId: productId,
+    });
   }
 
   getUserCart(): Observable<any> {

@@ -10,6 +10,7 @@ import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
 import { SearchPipe } from 'src/app/core/pipe/search.pipe';
 import { CartService } from 'src/app/core/services/cart.service';
 import { ProductsService } from 'src/app/core/services/products.service';
+import { WishlistService } from 'src/app/core/services/wishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -30,12 +31,14 @@ export class HomeComponent implements OnInit {
     private _ProductsService: ProductsService,
     private _CartService: CartService,
     private _ToastrService: ToastrService,
-    private _Renderer2: Renderer2
+    private _Renderer2: Renderer2,
+    private _WishlistService: WishlistService
   ) {}
 
   productsData: Product[] = [];
   categories: Categories[] = [];
   term: string = '';
+  wishListData: string[] = [];
 
   ngOnInit(): void {
     this._ProductsService.getProducts().subscribe({
@@ -47,6 +50,13 @@ export class HomeComponent implements OnInit {
     this._ProductsService.getCategories().subscribe({
       next: (response) => {
         this.categories = response.data;
+      },
+    });
+
+    this._WishlistService.getWishList().subscribe({
+      next: (response) => {
+        const newData = response.data.map((item: any) => item._id);
+        this.wishListData = newData;
       },
     });
   }
@@ -105,6 +115,28 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         this._Renderer2.removeAttribute(element, 'disabled');
+      },
+    });
+  }
+
+  addWish(id: string | undefined): void {
+    this._WishlistService.addToWish(id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data;
+        // this._WishlistService.wishNumber.next(response.count);
+      },
+    });
+  }
+
+  removeWish(id: string | undefined): void {
+    this._WishlistService.removeWish(id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data;
+        // this._WishlistService.wishNumber.next(response.count);
       },
     });
   }

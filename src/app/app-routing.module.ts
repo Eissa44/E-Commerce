@@ -67,6 +67,14 @@ const routes: Routes = [
           ),
         title: 'Categories',
       },
+      {
+        path: 'wishlist',
+        loadComponent: () =>
+          import('./components/wish-list/wish-list.component').then(
+            (pram) => pram.WishListComponent
+          ),
+        title: 'Wish List',
+      },
     ],
   },
 
