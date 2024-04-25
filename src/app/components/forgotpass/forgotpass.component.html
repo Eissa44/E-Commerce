@@ -1,0 +1,62 @@
+<section
+  *ngIf="stepOne"
+  class="w-50 rounded-3 shadow p-3 mx-auto bg-main-light"
+>
+  <form [formGroup]="forgotForm" (ngSubmit)="forgotPass()">
+    <label for="email">Email:</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="form-control mt-2"
+      id="email"
+    />
+
+    <button class="main-btn mt-3 py-2">Forgot Password</button>
+
+    <p *ngIf="errorMsg" class="alert alert-danger w-75 mx-auto mt-2 mb-0">
+      {{ errorMsg }}
+    </p>
+  </form>
+</section>
+
+<section
+  *ngIf="stepTwo"
+  class="w-50 rounded-3 shadow p-3 mx-auto bg-main-light"
+>
+  <form [formGroup]="resetCodeForm" (ngSubmit)="reserCode()">
+    <label for="resetCode">Reset Code:</label>
+    <input
+      formControlName="resetCode"
+      type="text"
+      class="form-control mt-2"
+      id="resetCode"
+    />
+
+    <button class="main-btn mt-3 py-2">Reset Code</button>
+
+    <p *ngIf="errorMsg" class="alert alert-danger w-75 mx-auto mt-2 mb-0">
+      {{ errorMsg }}
+    </p>
+  </form>
+</section>
+
+<section
+  *ngIf="stepThree"
+  class="w-50 rounded-3 shadow p-3 mx-auto bg-main-light"
+>
+  <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
+    <label for="newPassword">Reset Password:</label>
+    <input
+      formControlName="newPassword"
+      type="password"
+      class="form-control mt-2"
+      id="newPassword"
+    />
+
+    <button class="main-btn mt-3 py-2">Reset Password</button>
+
+    <p *ngIf="errorMsg" class="alert alert-danger w-75 mx-auto mt-2 mb-0">
+      {{ errorMsg }}
+    </p>
+  </form>
+</section>

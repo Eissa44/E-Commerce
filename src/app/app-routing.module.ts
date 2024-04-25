@@ -75,6 +75,14 @@ const routes: Routes = [
           ),
         title: 'Wish List',
       },
+      {
+        path: 'forgotpass',
+        loadComponent: () =>
+          import('./components/forgotpass/forgotpass.component').then(
+            (pram) => pram.ForgotpassComponent
+          ),
+        title: 'Forgot Password',
+      },
     ],
   },
 
