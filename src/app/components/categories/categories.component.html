@@ -1,1 +1,22 @@
-<p>categories works!</p>
+<section class="my-4">
+  <div class="row g-4">
+    <div
+      *ngFor="let category of categoryData"
+      class="col-sm-6 col-md-4 col-lg-3"
+    >
+      <div
+        class="border rounded-3 p-2 shadow"
+        role="button"
+        [routerLink]="['/categorydetails', category._id]"
+      >
+        <img
+          [src]="category.image"
+          height="280"
+          [alt]="category.name"
+          class="w-100"
+        />
+        <h3 class="text-center text-main">{{ category.name }}</h3>
+      </div>
+    </div>
+  </div>
+</section>

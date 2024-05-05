@@ -34,4 +34,12 @@ export class CartService {
   clearCartItems(): Observable<any> {
     return this._HttpClient.delete(this.baseUrl + `cart`);
   }
+
+  checkOut(cartId: string | null, userInfo: object): Observable<any> {
+    return this._HttpClient.post(
+      this.baseUrl +
+        `orders/checkout-session/${cartId}?url=http://localhost:59925`,
+      { shippingAddress: userInfo }
+    );
+  }
 }

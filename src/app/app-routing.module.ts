@@ -33,6 +33,24 @@ const routes: Routes = [
       },
 
       {
+        path: 'payment/:id',
+        loadComponent: () =>
+          import('./components/payment/payment.component').then(
+            (pram) => pram.PaymentComponent
+          ),
+        title: 'Online payment',
+      },
+
+      {
+        path: 'allorders',
+        loadComponent: () =>
+          import('./components/all-orders/all-orders.component').then(
+            (pram) => pram.AllOrdersComponent
+          ),
+        title: 'User Orders',
+      },
+
+      {
         path: 'products',
         loadComponent: () =>
           import('./components/products/products.component').then(
@@ -47,7 +65,7 @@ const routes: Routes = [
           import('./components/details/details.component').then(
             (pram) => pram.DetailsComponent
           ),
-        title: 'Products',
+        title: 'Products Details',
       },
 
       {
@@ -66,6 +84,14 @@ const routes: Routes = [
             (pram) => pram.CategoriesComponent
           ),
         title: 'Categories',
+      },
+      {
+        path: 'categorydetails/:id',
+        loadComponent: () =>
+          import('./components/categorydetails/categorydetails.component').then(
+            (pram) => pram.CategorydetailsComponent
+          ),
+        title: 'Category Details',
       },
       {
         path: 'wishlist',
