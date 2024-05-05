@@ -33,7 +33,6 @@ export class CategorydetailsComponent implements OnInit {
 
     this._ProductsService.getCategoryDetails(this.categoryId).subscribe({
       next: (response) => {
-        console.log(response);
         this.CategoryDetails = response.data;
       },
     });
