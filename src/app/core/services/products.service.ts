@@ -25,4 +25,8 @@ export class ProductsService {
   getProductDetails(id: string | null): Observable<any> {
     return this._HttpClient.get(this.baseUrl + `products/${id}`);
   }
+
+  allBrand(): Observable<any> {
+    return this._HttpClient.get(this.baseUrl + `brands`);
+  }
 }
